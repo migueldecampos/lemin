@@ -1,0 +1,60 @@
+# This map is similar to example01 but instead of ending
+# up with two paths we will end up with three
+# (always depending on the number of ants)
+##verbose
+53
+##start
+start 0 0
+##end
+end 0 0
+A 0 0
+B 0 0
+C 0 0
+D 0 0
+E 0 0
+f 0 0
+g 0 0
+h 0 0
+i 0 0
+j 0 0
+k 0 0
+l 0 0
+m 0 0
+n 0 0
+o 0 0
+p 0 0
+q 0 0
+r 0 0
+s 0 0
+t 0 0
+u 0 0
+#
+start-A
+A-B
+B-C
+C-D
+D-E
+E-end
+#
+start-f
+f-g
+g-h
+h-i
+i-j
+j-E
+#
+start-k
+k-l
+l-m
+m-n
+n-C
+D-o
+o-p
+p-end
+#
+A-q
+q-r
+r-s
+s-t
+t-u
+u-end

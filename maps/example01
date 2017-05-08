@@ -1,0 +1,48 @@
+# In this map:
+#  A
+#  | \
+#  z   X
+#   \    \
+#     b    C -- e
+#       \    \    \
+#        d     F    h
+#          \     \    \
+#            g --  I   j
+#                    \ |
+#                      k
+# 
+# You will see that if there are enough ants the
+# path that is initially found:
+# 		A -> X -> C -> F -> I -> K
+# will be substituted by two slighly longer paths.
+##verbose
+30
+##start
+A 0 0
+X 0 0
+C 0 0
+F 0 0
+I 0 0
+##end
+K 0 0
+z 0 0
+b 0 0
+d 0 0
+g 0 0
+e 0 0
+h 0 0
+j 0 0
+A-z
+z-b
+K-I
+h-j
+C-e
+A-X
+X-C
+h-e
+C-F
+F-I
+b-d
+d-g
+g-I
+j-K
