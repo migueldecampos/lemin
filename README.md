@@ -1,12 +1,14 @@
 # lemin
 Moving an ant colony - Graphs and maximum flow
 
-This is my OOP implementation in Python3 of a project I did in C for École 42.
+This is my OO implementation in Python3 of a project I did in C for École 42.
 
-The goal is to move ants from the source room in their ant colony to a sink room, and do it in the minimum number of turns possible, knowing that an ant can only move once per turn and that at any given time there can only be one ant per room (except for the source and the sink, where there can be as many ants as needed).
+This program takes as input a map of an ant colony in the form os a list of rooms and links between those rooms.
+The goal is to move ants from the source room to the sink room, and do it in the minimum number of turns possible, knowing that an ant can only move once per turn and that at any given time there can only be one ant per room (except for the source and the sink, where there can be as many ants as needed).
 
-The program takes a map in the following format:
+The map must be in the following format:
 
+	# comment   -> comment
 	##verbose   -> activate verbose output mode (optional)
 	10          -> number of ants
 	a 0 0       -> definition of a room, room name followed by the coordinates
