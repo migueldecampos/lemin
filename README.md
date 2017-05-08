@@ -7,17 +7,27 @@ The goal is to move ants from the source room in their ant colony to a sink room
 
 The program takes a map in the following format:
 
->##verbose   -> activate verbose output mode (optional)
->10          -> number of ants
->a 0 0       -> definition of a room, room name followed by the coordinates
->b 0 0
->##start     -> the next room defined will be the source
->start 0 0
->##end       -> the next room defined will be the sink
->end 0 0
->start-a     -> definition of a link between rooms
->a-b
->b-end
+##verbose   -> activate verbose output mode (optional)
+
+10          -> number of ants
+
+a 0 0       -> definition of a room, room name followed by the coordinates
+
+b 0 0
+
+##start     -> the next room defined will be the source
+
+start 0 0
+
+##end       -> the next room defined will be the sink
+
+end 0 0
+
+start-a     -> definition of a link between rooms
+
+a-b
+
+b-end
 
 (I ignore the coordinates of the rooms)
 
