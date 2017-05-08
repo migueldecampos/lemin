@@ -1,3 +1,7 @@
+import fileinput
+import re
+
+import room
 
 class Env(object):
 
@@ -10,6 +14,74 @@ class Env(object):
 		self.source = None
 		self.sink = None
 		self.direct = False
+
+
+	def reader(self):
+		sourcepos_sinkneg = 0
+
+		for line in fileinput.input():
+			print(line, end='')
+			
+			# activate verbose mode
+			if line == "##verbose\n":
+				self.verbose = True
+			
+			# recognize number of ants
+			elif re.match("^[0-9]+$", line):
+				self.n_ants = int(line)
+			
+			# recognize start room
+			elif self.n_ants != -1 and line == "##start\n":
+				sourcepos_sinkneg = 1
+			
+			# recognize end room
+			elif self.n_ants != -1 and line == "##end\n":
+				sourcepos_sinkneg = -1
+
+			# recognize comments
+			elif re.match("^[#]+", line):
+				pass
+
+			# recognize a room
+			elif self.n_ants != -1 and re.match("^[a-zA-z0-9_'|]+ [-+]?[0-9]+ [-+]?[0-9]+$", line):
+				cur_room = (re.search("^[a-zA-z0-9_'|]+", line)).group()
+				if cur_room in self.rooms:
+					print(f"Error - Double definition of room {cur_room}.")
+					exit()
+				if (len(self.rooms) == 0):
+					self.Rm = room.Room(cur_room, None, sourcepos_sinkneg)
+				else:
+					self.Rm.nxt = room.Room(cur_room, self.Rm, sourcepos_sinkneg)
+					self.Rm = self.Rm.nxt
+				self.Rm_dict[cur_room] = self.Rm
+				self.rooms.append(cur_room)
+				if sourcepos_sinkneg == 1:
+					self.source = self.Rm
+					self.source.dist_to_source = 0
+				elif sourcepos_sinkneg == -1:
+					self.sink = self.Rm
+					sourcepos_sinkneg = 0
+
+			# recognize tunnel
+			elif self.n_ants != -1 and re.match("^[a-zA-z0-9_'|]+-[a-zA-z0-9_'|]+$", line):
+				room_one = (re.search("^[a-zA-z0-9_'|]+", line)).group()
+				room_two = (re.search("[a-zA-z0-9_'|]+$", line)).group()
+				if room_one not in self.rooms or room_two not in self.rooms:
+					print(f"Error - At least one of these rooms does not exist.")
+					exit()
+				(self.Rm_dict[room_one]).add_neighbour(self.Rm_dict[room_two])
+				(self.Rm_dict[room_two]).add_neighbour(self.Rm_dict[room_one])
+			
+			else:
+				break
+		
+		if self.source == None or self.sink == None:
+			print("Error - No source and/or sink node.")
+			exit()
+		
+		if self.verbose:
+			self.show_rooms()
+
 
 	def show_rooms(self):
 		print("\n#########################################################")
@@ -40,8 +112,6 @@ class Env(object):
 				print(f"L{ant}-{self.sink.name} ", end='')
 				ant = ant + 1
 			print()
-
-
 
 	def output(self):
 		if self.verbose:

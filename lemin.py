@@ -1,7 +1,7 @@
 import sys
 import os.path
 
-import reader
+import env
 
 
 def main():
@@ -13,31 +13,33 @@ def main():
 		if not os.path.isfile(sys.argv[1]):
 			print("Map does not exist.")
 			exit()
-	Env = reader.reader()
+	envr = env.Env()
+	envr.reader()
 	
-	if Env.verbose:
+	if envr.verbose:
 		print("\n#########################################################")
 		print("####################      PATHS      ####################")
 		print("#########################################################")
-	Env.check_direct_connection()
+	envr.check_direct_connection()
 	i = 1
-	while not Env.direct and Env.source.bfs(i, Env.sink, Env.n_ants, Env.verbose) == 1:
-		if Env.verbose:
-			for n in Env.source.neighbours:
+	while not envr.direct and envr.source.bfs(i, envr.sink, envr.n_ants, envr.verbose) == 1:
+		if envr.verbose:
+			for n in envr.source.neighbours:
 				if n.receives_from != None:
-					print("   * " + Env.source.name, end=' -> ')
+					print("   * " + envr.source.name, end=' -> ')
 					tmp = n
 					while tmp != None:
 						print(tmp.name, end='')
-						if tmp != Env.sink:
+						if tmp != envr.sink:
 							print(" -> ", end='')
 						tmp = tmp.sends_to
 					print()
 			print()
 		i = i + 1
-	if Env.verbose:
+	if envr.verbose:
 		print("#########################################################")
 	
-	Env.output()
+	envr.output()
 
-main()
+if __name__ == '__main__':
+	main()
