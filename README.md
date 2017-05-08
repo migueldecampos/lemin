@@ -23,7 +23,7 @@ The program takes a map in the following format:
 
 
 
-In order to find the best solution to any map, I implemented a Ford-Fulkerson-like algorithm. I use consecutive breadth-first searches to find either whole new paths or a way to change the paths already found in order to increse flow, until no new path or augmenting path is found.
+In order to find the best solution to any map, I implemented a Ford-Fulkerson-like algorithm. I use consecutive breadth-first searches to find either whole new paths or a way to change the paths already found in order to increse flow.
 
 usage:
  > python3 lemin.py map.txt
