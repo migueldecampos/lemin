@@ -4,7 +4,7 @@ import re
 import room
 
 class Env(object):
-
+	
 	def __init__(self):
 		self.verbose = False
 		self.rooms = []
@@ -58,6 +58,7 @@ class Env(object):
 				if sourcepos_sinkneg == 1:
 					self.source = self.Rm
 					self.source.dist_to_source = 0
+					sourcepos_sinkneg = 0
 				elif sourcepos_sinkneg == -1:
 					self.sink = self.Rm
 					sourcepos_sinkneg = 0
